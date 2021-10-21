@@ -12,6 +12,7 @@ using namespace std;
 
 int n, l;
 vector<int> lengths;
+stack<int> st1, st2;
 
 int main()
 {
@@ -21,13 +22,54 @@ int main()
 	cin >> n;
 	
 	int len = 1 + 4 * (n - 1);
-	for (int i = n; i >=1 ; i--)
+	for (int i = 1; i <= n ; i++)
 	{
 		l = 1 + 4 * (i - 1);
-		lengths.push_back(l);
+		//lengths.push_back(l);
+		st1.push(l);
 	}
 
-	
+	for (int i = 0; i < len; i++)
+	{
+		int stTop = 0;
+		if (i <= len / 2)
+			stTop = st1.top();
+		else
+			stTop = st2.top();
+
+		if (i % 2 == 0)
+		{
+			for (int j = 0; j < (len - stTop) / 4; j++)
+			{
+				cout << "* ";
+			}
+			for (int j = 0; j < stTop; j++)
+			{
+				cout << "*";
+			}
+			for (int j = 0; j < (len - stTop) / 4; j++)
+			{
+				cout << " *";
+			}
+			st2.push(st1.top());
+		}
+		else
+		{
+			for (int j = 0; j < (len - stTop) / 4; j++)
+			{
+				cout << "* ";
+			}
+			for (int j = 0; j < stTop; j++)
+			{
+				cout << " ";
+			}
+			for (int j = 0; j < (len - stTop) / 4; j++)
+			{
+				cout << " *";
+			}
+		}
+		cout << " ";
+	}
 	
 	
 	/*for (int i = 0; i < length; i++)

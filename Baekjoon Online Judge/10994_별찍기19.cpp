@@ -14,6 +14,8 @@ int n, l;
 vector<int> lengths;
 stack<int> st1, st2;
 
+//¼º°ø
+
 int main()
 {
 	ios_base::sync_with_stdio(false);
@@ -51,7 +53,13 @@ int main()
 			{
 				cout << " *";
 			}
-			st2.push(st1.top());
+			/*if(st1.size() > 1)*/
+			if (!st1.empty())
+			{
+				st2.push(st1.top());
+				st1.pop();
+			}
+			
 		}
 		else
 		{
@@ -67,8 +75,12 @@ int main()
 			{
 				cout << " *";
 			}
+			if (i > len/2)
+			{
+				st2.pop();
+			}
 		}
-		cout << " ";
+		cout << "\n";
 	}
 	
 	

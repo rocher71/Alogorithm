@@ -10,6 +10,8 @@
 #include<deque>
 using namespace std;
 
+//¼º°ø
+
 vector<pair<int, int>> v;
 vector<int> scores;
 vector<int> idx;

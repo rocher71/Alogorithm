@@ -42,18 +42,41 @@ float med()
 
 int freq()
 {
-	sort(arr, arr + int(n), greater<>()); //여러개인 순으로 정렬
-	vector <int> secondMin;
-	for (int i = 0; i < n; i++)
-	{
-		secondMin.push_back(arr[i].second);
-		if (arr[i].first != arr[i + 1].first)
-			break;
-	}
-	if (secondMin.size() == 1) return secondMin[0];
+	//sort(arr, arr + int(n), greater<>()); //여러개인 순으로 정렬
+	//vector <int> secondMin;
+	//for (int i = 0; i < n; i++)
+	//{
+	//	secondMin.push_back(arr[i].second);
+	//	if (arr[i].first != arr[i + 1].first)
+	//		break;
+	//}
+	//if (secondMin.size() == 1) return secondMin[0];
 
-	sort(secondMin.begin(), secondMin.end());
-	return secondMin[1];
+	//sort(secondMin.begin(), secondMin.end());
+	//return secondMin[1];
+
+	sort(v.begin(), v.end());
+	vector<pair<int,int>> freV; //빈도, 값
+
+	int prevNum = v[0], num = 0;
+	for (int i = 1; i < n; i++)
+	{
+		if (v[i] != v[i - 1] && num == 0) continue;
+
+		//중복된 애들의 연속 끝
+		if (v[i] != v[i - 1]) 
+		{
+			freV.push_back({ num, v[i - 1] });
+			num = 0;
+			continue;
+		}
+
+		//중복 ing
+		num++;
+	}
+
+	sort(freV.begin(), freV.end());
+	if(freV.size() == 0) 
 }
 
 int range()

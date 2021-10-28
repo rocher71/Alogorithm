@@ -8,80 +8,71 @@
 #include<cstring>
 #include<sstream>
 #include<deque>
+#include<cmath>
 using namespace std;
 
-float n;
+double n;
 vector<double> v;
-pair<int, int> arr[4001]; //개수, 값
 
 int aver()
 {
-	float sum = 0, ans = 0;
+	if (v.size() == 1) return v[0];
+	double sum = 0.0, ans = 0.0;
 	for (double i : v)
-	{
 		sum += i;
-	}
+	
 	ans = sum / n;
 	
-	int firstDec = int(ans * 10) % 10;
-
-	if (firstDec < 5) return int(ans);
-	else return int(ans) + 1;
-	
+	return int(round(ans));
 }
 
-float med()
+int med()
 {
-	sort(v.begin(), v.end());
-	if (int(n) % 2 != 0) //홀수
-		return v[int(n) / 2];
-
-	//짝수
-	return (v[n / 2 - 1] + v[n / 2]) / 2.0;
+	if (v.size() == 1) return v[0];
+	return v[int(n) / 2];
 }
 
 int freq()
 {
-	//sort(arr, arr + int(n), greater<>()); //여러개인 순으로 정렬
-	//vector <int> secondMin;
-	//for (int i = 0; i < n; i++)
-	//{
-	//	secondMin.push_back(arr[i].second);
-	//	if (arr[i].first != arr[i + 1].first)
-	//		break;
-	//}
-	//if (secondMin.size() == 1) return secondMin[0];
+	if (v.size() == 1) return v[0];
 
-	//sort(secondMin.begin(), secondMin.end());
-	//return secondMin[1];
-
-	sort(v.begin(), v.end());
 	vector<pair<int,int>> freV; //빈도, 값
 
 	int prevNum = v[0], num = 0;
 	for (int i = 1; i < n; i++)
 	{
+		//중복x
 		if (v[i] != v[i - 1] && num == 0) continue;
 
 		//중복된 애들의 연속 끝
 		if (v[i] != v[i - 1]) 
 		{
 			freV.push_back({ num, v[i - 1] });
-			num = 0;
+			num = 0;	
+			continue;
+		}
+
+		if (i == n-1 && v[i] == v[i - 1])
+		{
+			num++;
+			freV.push_back({ num, v[i - 1] });
 			continue;
 		}
 
 		//중복 ing
 		num++;
+		
 	}
 
 	sort(freV.begin(), freV.end());
-	if(freV.size() == 0) 
+	if (freV.size() == 0) return v[1];
+	if (freV.size() == 1) return freV[0].second;
+	
+	return freV[1].second;
 }
 
 int range()
 {
-	sort(v.begin(), v.end());
 	return v[v.size() - 1] - v[0];
 }
 
@@ -93,18 +84,13 @@ int main()
 
 	cin >> n;
 
-	for (int i = 1; i <= n; i++)
+	for (int i = 0; i < int(n); i++)
 	{
-		arr[i].second = i;
-	}
-
-	for (int i = 0; i < n; i++)
-	{
-		int tmp;
+		double tmp;
 		cin >> tmp;
 		v.push_back(tmp);
-		arr[tmp].first++;
 	}
+	sort(v.begin(), v.end());
 
 	cout << aver() << "\n" << med() << "\n" << freq() << "\n" << range() << "\n";
 }

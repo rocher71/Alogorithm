@@ -11,7 +11,7 @@
 #include<cmath>
 using namespace std;
 
-
+//¼º°ø
 string s;
 
 int main()
@@ -29,7 +29,9 @@ int main()
 			if (s[i] == '(' || s[i] == '[')
 				st.push(s[i]);
 
-			else if ((s[i] == ')' || s[i] == ']') && st.empty())
+			else if ((s[i] == ')' || s[i] == ']') && st.empty()
+						|| (s[i] == ')' && st.top() != '(')
+						|| (s[i] == ']' && st.top() != '['))
 			{
 				isEmpty = true;
 				break;

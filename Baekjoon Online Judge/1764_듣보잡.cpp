@@ -6,13 +6,16 @@
 #include<stack>
 #include<string>
 #include<cstring>
+#include<set>
 #include<sstream>
 #include<deque>
 #include<cmath>
 using namespace std;
 
+//¼º°ø
 int n, m;
-vector<string> see, hear, ans;
+vector<string> ans;
+set<string> see, hear;
 
 int main()
 {
@@ -25,38 +28,29 @@ int main()
 	{
 		string s;
 		cin >> s;
-		see.push_back(s);
+		see.insert(s);
 	}
 	for (int i = 0; i < m; i++)
 	{
 		string s;
 		cin >> s;
-		hear.push_back(s);
+		hear.insert(s);
 	}
 
-	sort(see.begin(), see.end());
-	sort(hear.begin(), hear.end());
-int ansCnt = 0;
-	for (int i = 0; i < n; i++)
+	int ansCnt = 0;
+
+	//set<string>::iterator iter;
+	for (const auto& name : see)
 	{
-		
-		for (int j = 0; j < m - ansCnt; j++)
-		{
-			if (see[i][0] < hear[j][0]) break;
-			if (see[i] == hear[j])
-			{
-				ans.push_back(hear[j]);
-				hear.erase(hear.begin() + j);
-				ansCnt++;
-			}
-		}
+		auto iter = hear.find(name);
+		if (iter == hear.end())	continue;
+		ans.push_back(name);
 	}
 
-	sort(ans.begin(), ans.end());
 	cout << ans.size() << "\n";
+	for (string name : ans)
+		cout << name << "\n";
 
-	for (string s : ans)
-		cout << s << "\n";
-
+	
 
 }
